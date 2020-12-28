@@ -4,9 +4,8 @@ import (
 	"fire_heart/models/entity"
 	"fire_heart/models/service"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
-	"log"
 	"net/http"
+	"time"
 )
 
 type UserController struct{}
@@ -15,8 +14,14 @@ var userService = new(service.UserService)
 func (userController *UserController) Store(c *gin.Context) {
 	type CreateUserInput struct {
 		Email string `json:"email" binding:"required"`
-		Password string `json:"password" binding:"required"`
+		//Password string `json:"password" binding:"required"`
 		Name string `json:"name" binding:"required"`
+		Career string `json:"career" binding:"required"`
+		Image string `json:"image"`
+		Description string `json:"description"`
+		Address string `json:"address"`
+		Language string `json:"language"`
+		Birthday string `json:"birthday"`
 	}
 
 	var input CreateUserInput
@@ -29,12 +34,19 @@ func (userController *UserController) Store(c *gin.Context) {
 	user := entity.User{}
 	user.Email = input.Email
 	user.Name = input.Name
-	hash, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.MinCost)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	user.Password = string(hash)
+	user.Career = input.Career
+	user.Image = input.Image
+	user.Description = input.Description
+	user.Address = input.Address
+	user.Language = input.Language
+	t, _ := time.Parse("2006-01-02", input.Birthday)
+	user.Birthday = t
+	//hash, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.MinCost)
+	//if err != nil {
+	//	log.Fatal(err)
+	//	return
+	//}
+	//user.Password = string(hash)
 
 	insertResult, err := userService.Create(user)
 
@@ -46,18 +58,20 @@ func (userController *UserController) Store(c *gin.Context) {
 }
 
 func (userController *UserController) Show(c *gin.Context) {
-	type FindUserInput struct {
-		Email string `json:"email" binding:"required"`
-	}
+	//type FindUserInput struct {
+	//	Email string `json:"email" binding:"required"`
+	//}
+	//
+	//var input FindUserInput
 
-	var input FindUserInput
+	//if err := c.ShouldBindJSON(&input); err != nil {
+	//	c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
+	//	return
+	//}
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
-		return
-	}
+	email := c.Param("email")
 
-	user, err := userService.FindByEmail(input.Email)
+	user, err := userService.FindByEmail(email)
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": "User not found"})

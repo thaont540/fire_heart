@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fire_heart/utils"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -13,7 +14,7 @@ var Database *mongo.Database
 
 func Connection() {
 	fmt.Println("Starting to connect MongoDB!")
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI(utils.Env("DB_STRING")))
 	if err != nil {
 		log.Fatal(err)
 
