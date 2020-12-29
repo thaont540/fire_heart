@@ -27,9 +27,12 @@ func Connection() {
 
 		return
 	}
-	//defer client.Disconnect(ctx)
 
 	Database = client.Database("fire_heart")
 
 	fmt.Println("Connected to MongoDB!")
+}
+
+func Disconnect()  {
+	//defer client.Disconnect(ctx)
 }

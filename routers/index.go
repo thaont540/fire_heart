@@ -7,17 +7,24 @@ import (
 	"time"
 )
 
-func setAuthRoute(router *gin.Engine)  {
+func setAuthRoute(router *gin.Engine) {
 	userController := new (controllers.UserController)
-	router.POST("/", userController.Store)
-	router.GET("/:email", userController.Show)
-	router.DELETE("/:email", userController.Delete)
+	router.POST("/users", userController.Store)
+	router.GET("/users/:id", userController.Show)
+	router.DELETE("/users/:id", userController.Delete)
+}
+
+func setProfileRoute(router *gin.Engine) {
+	profileController := new(controllers.ProfileController)
+	router.POST("/users/:userId/profile", profileController.Store)
+	router.GET("/users/:id/profile", profileController.Show)
 }
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST"},
@@ -30,8 +37,8 @@ func InitRouter() *gin.Engine {
 		MaxAge: 12 * time.Hour,
 	}))
 
-
 	setAuthRoute(router)
+	setProfileRoute(router)
 
 	return router
 }
