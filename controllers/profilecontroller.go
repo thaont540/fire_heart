@@ -62,23 +62,23 @@ func (profileController *ProfileController) Show(c *gin.Context) {
 	}
 }
 
-func (profileController *ProfileController) Delete(c *gin.Context) {
-	type DeleteUserInput struct {
-		Email string `json:"email" binding:"required"`
-	}
-
-	var input DeleteUserInput
-
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
-		return
-	}
-
-	deleteResult, err := userService.DeleteByEmail(input.Email)
-
-	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"message": "User not found"})
-	} else {
-		c.JSON(http.StatusOK, gin.H{"message": "OK", "data": deleteResult.DeletedCount})
-	}
-}
+//func (profileController *ProfileController) Delete(c *gin.Context) {
+//	type DeleteUserInput struct {
+//		Email string `json:"email" binding:"required"`
+//	}
+//
+//	var input DeleteUserInput
+//
+//	if err := c.ShouldBindJSON(&input); err != nil {
+//		c.AbortWithStatusJSON(401, gin.H{"error": "Please input all fields"})
+//		return
+//	}
+//
+//	deleteResult, err := userService.DeleteByEmail(input.Email)
+//
+//	if err != nil {
+//		c.JSON(http.StatusOK, gin.H{"message": "User not found"})
+//	} else {
+//		c.JSON(http.StatusOK, gin.H{"message": "OK", "data": deleteResult.DeletedCount})
+//	}
+//}

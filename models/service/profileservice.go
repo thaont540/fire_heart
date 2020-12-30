@@ -26,18 +26,18 @@ func (profileService *ProfileService)FindByUserId(userId string) (profile entity
 	return profile, err
 }
 
-func (profileService *ProfileService)FindByEmail(email string) (found entity.User, err error) {
-	collection := db.Database.Collection(entity.UserCollection)
-	filter := bson.D{{"email", email}}
-	err = collection.FindOne(context.TODO(), filter).Decode(&found)
-
-	return found, err
-}
-
-func (profileService *ProfileService) DeleteByEmail(email string) (deleteResult *mongo.DeleteResult, err error) {
-	collection := db.Database.Collection(entity.UserCollection)
-	filter := bson.D{{"email", email}}
-	deleteResult, err = collection.DeleteOne(context.TODO(), filter)
-
-	return deleteResult, err
-}
+//func (profileService *ProfileService)FindByEmail(email string) (found entity.User, err error) {
+//	collection := db.Database.Collection(entity.UserCollection)
+//	filter := bson.D{{"email", email}}
+//	err = collection.FindOne(context.TODO(), filter).Decode(&found)
+//
+//	return found, err
+//}
+//
+//func (profileService *ProfileService) DeleteByEmail(email string) (deleteResult *mongo.DeleteResult, err error) {
+//	collection := db.Database.Collection(entity.UserCollection)
+//	filter := bson.D{{"email", email}}
+//	deleteResult, err = collection.DeleteOne(context.TODO(), filter)
+//
+//	return deleteResult, err
+//}

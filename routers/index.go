@@ -20,6 +20,12 @@ func setProfileRoute(router *gin.Engine) {
 	router.GET("/users/:id/profile", profileController.Show)
 }
 
+func setExperienceRoute(router *gin.Engine) {
+	experienceController := new(controllers.ExperienceController)
+	router.POST("/users/:userId/experience", experienceController.Store)
+	router.GET("/users/:id/experience", experienceController.Show)
+}
+
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(gin.Logger())
@@ -39,6 +45,7 @@ func InitRouter() *gin.Engine {
 
 	setAuthRoute(router)
 	setProfileRoute(router)
+	setExperienceRoute(router)
 
 	return router
 }
