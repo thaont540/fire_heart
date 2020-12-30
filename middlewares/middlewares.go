@@ -44,6 +44,7 @@ func Authentication() gin.HandlerFunc {
 				})
 				return
 			}
+			user.Password = "secret"
 			c.Set("user", user)
 			c.Next()
 		} else {

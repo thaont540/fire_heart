@@ -16,22 +16,26 @@ func setAuthRoute(router *gin.Engine) {
 func setUserRoute(router *gin.Engine)  {
 	userController := new (controllers.UserController)
 	routeGroup := router.Group("/users")
+	routeGroup.GET("/:id", userController.Show)
 	routeGroup.Use(middlewares.Authentication())
 	routeGroup.POST("/", userController.Store)
-	routeGroup.GET("/:id", userController.Show)
-	routeGroup.DELETE("/:id", userController.Delete)
+	routeGroup.DELETE("/", userController.Delete)
 }
 
 func setProfileRoute(router *gin.Engine) {
 	profileController := new(controllers.ProfileController)
-	router.POST("/profile/:userId", profileController.Store)
-	router.GET("/profile/:userId", profileController.Show)
+	routeGroup := router.Group("/profile")
+	routeGroup.GET("/:userId", profileController.Show)
+	routeGroup.Use(middlewares.Authentication())
+	routeGroup.POST("/", profileController.Store)
 }
 
 func setExperienceRoute(router *gin.Engine) {
 	experienceController := new(controllers.ExperienceController)
-	router.POST("/experience/:userId", experienceController.Store)
-	router.GET("/experience/:userId", experienceController.Show)
+	routeGroup := router.Group("/experience")
+	routeGroup.GET("/:userId", experienceController.Show)
+	routeGroup.Use(middlewares.Authentication())
+	routeGroup.POST("/", experienceController.Store)
 }
 
 func InitRouter() *gin.Engine {

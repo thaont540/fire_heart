@@ -58,9 +58,9 @@ func (userController *UserController) Show(c *gin.Context) {
 }
 
 func (userController *UserController) Delete(c *gin.Context) {
-	id := c.Param("id")
+	user := c.MustGet("user").(entity.User)
 
-	DeletedCount, err := userService.DeleteById(id)
+	DeletedCount, err := userService.DeleteById(user.ID.Hex())
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": "User not found"})

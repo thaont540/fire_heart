@@ -11,7 +11,7 @@ import (
 type ExperienceController struct {}
 var experienceService = new(service.ExperienceService)
 
-func (experienceController *ExperienceController)Store(c *gin.Context)  {
+func (experienceController *ExperienceController)Store(c *gin.Context) {
 	type CreateExperienceInput struct {
 		StartDate string `json:"start_date" binding:"required"`
 		EndDate string `json:"end_date" binding:"required"`
@@ -30,8 +30,10 @@ func (experienceController *ExperienceController)Store(c *gin.Context)  {
 		return
 	}
 
+	user := c.MustGet("user").(entity.User)
+
 	experience := entity.Experience{}
-	experience.UserId = c.Param("userId")
+	experience.UserId = user.ID.Hex()
 	experience.Position = input.Position
 	experience.Project = input.Project
 	experience.Description = input.Description

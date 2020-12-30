@@ -30,8 +30,10 @@ func (profileController *ProfileController) Store(c *gin.Context) {
 		return
 	}
 
+	user := c.MustGet("user").(entity.User)
+
 	profile := entity.Profile{}
-	profile.UserId = c.Param("userId")
+	profile.UserId = user.ID.Hex()
 	profile.Email = input.Email
 	profile.Name = input.Name
 	profile.Career = input.Career
