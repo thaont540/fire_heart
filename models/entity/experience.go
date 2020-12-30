@@ -8,7 +8,7 @@ import (
 var ExperienceCollection = "experiences"
 
 type Experience struct {
-	ID primitive.ObjectID `bson:"_id,omitempty"`
+	ID primitive.ObjectID `bson:"_id,omitempty" json:"id"`
 	UserId string `json:"user_id"`
 	StartDate time.Time `json:"start_date" bson:"startdate,omitempty"`
 	EndDate time.Time `json:"end_date"`
