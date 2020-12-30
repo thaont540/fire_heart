@@ -52,7 +52,7 @@ func (profileController *ProfileController) Store(c *gin.Context) {
 }
 
 func (profileController *ProfileController) Show(c *gin.Context) {
-	userId := c.Param("id")
+	userId := c.Param("userId")
 	profile, err := profileService.FindByUserId(userId)
 
 	if err != nil {

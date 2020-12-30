@@ -60,6 +60,14 @@ func (userService *UserService)FindByEmail(email string) (found entity.User, err
 	return found, err
 }
 
+func (userService *UserService)FindByUsername(userName string) (found entity.User, err error) {
+	collection := db.Database.Collection(entity.UserCollection)
+	filter := bson.D{{"username", userName}}
+	err = collection.FindOne(context.TODO(), filter).Decode(&found)
+
+	return found, err
+}
+
 func (userService *UserService) DeleteByEmail(email string) (deleteResult *mongo.DeleteResult, err error) {
 	collection := db.Database.Collection(entity.UserCollection)
 	filter := bson.D{{"email", email}}

@@ -53,7 +53,7 @@ func (experienceController *ExperienceController)Store(c *gin.Context)  {
 }
 
 func (experienceController *ExperienceController) Show(c *gin.Context) {
-	userId := c.Param("id")
+	userId := c.Param("userId")
 	experience, err := experienceService.FindByUserId(userId)
 
 	if err != nil {
