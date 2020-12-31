@@ -38,6 +38,14 @@ func setExperienceRoute(router *gin.Engine) {
 	routeGroup.POST("/", experienceController.Store)
 }
 
+func setEducationRoute(router *gin.Engine) {
+	educationController := new(controllers.EducationController)
+	routeGroup := router.Group("/education")
+	routeGroup.GET("/:userId", educationController.Show)
+	routeGroup.Use(middlewares.Authentication())
+	routeGroup.POST("/", educationController.Store)
+}
+
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(gin.Logger())
@@ -59,6 +67,7 @@ func InitRouter() *gin.Engine {
 	setUserRoute(router)
 	setProfileRoute(router)
 	setExperienceRoute(router)
+	setEducationRoute(router)
 
 	return router
 }

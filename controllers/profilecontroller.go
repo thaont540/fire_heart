@@ -58,7 +58,7 @@ func (profileController *ProfileController) Show(c *gin.Context) {
 	profile, err := profileService.FindByUserId(userId)
 
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"message": "User not found"})
+		c.JSON(http.StatusOK, gin.H{"message": "Profile not found"})
 	} else {
 		c.JSON(http.StatusOK, gin.H{"message": "OK", "data": profile})
 	}
