@@ -14,4 +14,5 @@ type Profile struct {
 	Address string `json:"address"`
 	Language string `json:"language"`
 	Birthday time.Time `json:"birthday"`
+	PhoneNumber string `json:"phone_number"`
 }

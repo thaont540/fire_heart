@@ -21,6 +21,7 @@ func (profileController *ProfileController) Store(c *gin.Context) {
 		Address string `json:"address"`
 		Language string `json:"language"`
 		Birthday string `json:"birthday"`
+		PhoneNumber string `json:"phone_number"`
 	}
 
 	var input CreateProfileInput
@@ -41,6 +42,7 @@ func (profileController *ProfileController) Store(c *gin.Context) {
 	profile.Description = input.Description
 	profile.Address = input.Address
 	profile.Language = input.Language
+	profile.PhoneNumber = input.PhoneNumber
 	t, _ := time.Parse("2006-01-02", input.Birthday)
 	profile.Birthday = t
 
