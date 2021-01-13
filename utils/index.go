@@ -3,6 +3,8 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
+	"fire_heart/models/msgraph"
+	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"net/http"
@@ -39,7 +41,6 @@ func AuthenticatedHttpGet(endpoint string) *http.Response {
 func AuthenticatedHttpPost(endpoint string, data map[string]string) *http.Response {
 	GetToken()
 	dataBody, err := json.Marshal(data)
-
 	client := &http.Client{}
 	r, err := http.NewRequest("POST", endpoint, bytes.NewBuffer(dataBody))
 	if err != nil {
@@ -48,6 +49,25 @@ func AuthenticatedHttpPost(endpoint string, data map[string]string) *http.Respon
 
 	r.Header.Add("Content-Type", "application/json")
 	r.Header.Add("Content-Length", strconv.Itoa(len(data)))
+	r.Header.Add("Authorization", "Bearer " + Ms365Token)
+
+	res, err := client.Do(r)
+
+	return res
+}
+
+func AuthenticatedHttpPost1(endpoint string, data msgraph.CalendarEvent) *http.Response {
+	GetToken()
+	dataBody, err := json.Marshal(data)
+	client := &http.Client{}
+	fmt.Println(data, dataBody)
+	r, err := http.NewRequest("POST", endpoint, bytes.NewBuffer(dataBody))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r.Header.Add("Content-Type", "application/json")
+	r.Header.Add("Content-Length", strconv.Itoa(len(dataBody)))
 	r.Header.Add("Authorization", "Bearer " + Ms365Token)
 
 	res, err := client.Do(r)

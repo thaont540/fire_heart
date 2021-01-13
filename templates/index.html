@@ -1,1 +1,32 @@
-<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={{ .client_id }}&response_type=code&redirect_uri={{ .call_back }}&response_mode=query&scope=Calendars.Read%20Calendars.ReadWrite%20user.read%20mail.read&state=12345">Login with Microsoft 365</a>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Calendar v4 signin</title>
+        <style>
+            pre {
+                white-space: pre-wrap;       /* css-3 */
+                white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+                white-space: -pre-wrap;      /* Opera 4-6 */
+                white-space: -o-pre-wrap;    /* Opera 7 */
+                word-wrap: break-word;
+            }
+            body {
+                width: 80%;
+                margin: 0 auto;
+            }
+            .sign-in {
+                text-align: center;
+                margin: 50px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sign-in">
+            <a class="btn btn-primary"
+               href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={{ .client_id }}&response_type=code&redirect_uri={{ .call_back }}&response_mode=query&scope=Calendars.Read%20Calendars.ReadWrite%20user.read%20mail.read&state=12345">
+                <i class="fa fa-windows"></i> Login with Microsoft 365
+            </a>
+        </div>
+    </body>
+</html>

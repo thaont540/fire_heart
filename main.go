@@ -23,6 +23,7 @@ func main() {
 	router.GET("/calendars", calendarController.Index)
 	router.POST("/calendars", calendarController.Store)
 	router.GET("/calendars/:calendarId", calendarController.Show)
+	router.POST("/calendars/:calendarId/events", calendarController.CreateEvent)
 	router.GET("/callback", authenticateController.CallBack)
 
 	_ = router.Run()
