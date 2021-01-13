@@ -1,4 +1,3 @@
-{{define "callback.html"}}
 <style>
     pre {
         white-space: pre-wrap;       /* css-3 */
@@ -16,4 +15,3 @@
     var data = JSON.parse("{{ .response }}")
     document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2);
 </script>
-{{end}}
