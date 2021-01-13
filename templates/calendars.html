@@ -1,0 +1,19 @@
+{{define "calendars.html"}}
+<style>
+    pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;
+    }
+</style>
+
+<pre id="json">
+</pre>
+
+<script>
+    var data = JSON.parse("{{ .response }}")
+    document.getElementById("json").innerHTML = JSON.stringify(data, undefined, 2);
+</script>
+{{end}}
